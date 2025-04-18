@@ -7,3 +7,4 @@ const myCacheControllingDecor = new CachedClient()
 
 const myScoreGetter: ScoreClientProtocol = myCacheControllingDecor
 
+//
