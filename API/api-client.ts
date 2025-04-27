@@ -1,19 +1,22 @@
 import { ScoreClientProtocol } from "./score-client-protocol";
 
 export class ApiClient implements ScoreClientProtocol {
-    private reqUrl: string = "https://score.hsborges.dev/api"
-    private scoreEndp: string = "/score"
+    private reqUrl: string = "https://score.hsborges.dev/api";
+    private scoreEndp: string = "/score";
 
     async score(cpf: string): Promise<number> {
         const queryParameter = "?cpf=" + cpf;
         const response = await fetch(this.reqUrl + this.scoreEndp + queryParameter);
 
-        if (response.ok)
-            return response.json()["score"];
-        else if (response.status == 400)
-            throw new Error(response.json()["error"]);
-        else
+        if (response.ok){
+            return (await response.json())["score"];
+        }
+        else if (response.status == 400){
+            throw new Error((await response.json())["error"]);
+        }
+        else{
             throw new Error(response.statusText);
+        }
     }
 }
 
